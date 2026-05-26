@@ -209,8 +209,8 @@ class _MyHomePageState extends State<MyHomePage> {
   GeoJsonParser geoJsonParser = GeoJsonParser(
     defaultMarkerColor: Colors.red,
     defaultPolygonBorderColor: Colors.red,
-    defaultPolygonFillColor: Colors.red.withOpacity(0.1),
-    defaultCircleMarkerColor: Colors.red.withOpacity(0.25),
+    defaultPolygonFillColor: Colors.red.withAlpha((255 ~/ 10)),
+    defaultCircleMarkerColor: Colors.red.withAlpha((255 ~/ 4)),
   );
 
   bool loadingData = false;
@@ -246,6 +246,9 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         loadingData = false;
       });
+      if (!mounted) {
+        return;
+      }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('GeoJson Processing time: ${stopwatch2.elapsed}'),
